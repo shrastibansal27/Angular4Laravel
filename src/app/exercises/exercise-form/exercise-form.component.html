@@ -1,0 +1,32 @@
+<div>
+  <p>
+  exercise-form works!
+  <ng-content select="header"></ng-content>
+</p>
+</div>
+
+<div>
+ <p>
+  <ng-content select="footer"></ng-content>
+</p>
+</div>
+<!-- <app-exercises [excerciseName]="formname"></app-exercises> -->
+<form (ngSubmit)="getFormData(f)" #f="ngForm" class="form-horizontal">
+    <label>{{formTitle}}</label>
+    <div class="form-group">
+      <label>Enter Machine Name:</label>
+          <input type="name" class="form-control" name="machine_name" ngModel>
+    </div>
+    <div class="form-group">
+        <label>Enter Machine Code:</label>
+    <input type="name" class="form-control" name="machine_code" ngModel>
+    </div>
+    <div class="form-group">
+        <input type="submit" name="save">
+    </div>
+    <div>
+        <input type="button" name="edit" value="Edit" (click)="formData($event)">
+    </div>
+
+</form>
+

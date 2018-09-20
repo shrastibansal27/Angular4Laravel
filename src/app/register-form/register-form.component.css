@@ -1,0 +1,12 @@
+input.ng-invalid.ng-touched{
+    border: 2px solid red !important;
+}
+
+.container{
+    border: 1px solid;
+    background: gainsboro;
+}
+
+span.help-block{
+    color:red;
+}

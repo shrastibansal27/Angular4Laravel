@@ -1,0 +1,4 @@
+<select (change)="getChangedValue()" [(ngModel)] = "selectedValue" name="filter">
+    <option *ngFor="let Name of ExerciseName" [value]="Name.id">{{Name.exercise_name}}</option>
+</select>
+<input type="search" (keypress)="getSearchText()" [(ngModel)]="searchfield" name="search">

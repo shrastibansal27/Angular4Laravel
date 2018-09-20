@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <app-upper-component (onSelectValueChange)="getValuefromChild($event)" (searchValue) = "getSearchValue($event)" [ExerciseName]="ExerciseNameArr">
+
+            </app-upper-component>
+            <label>Filter:</label>
+            <input type="search" name="filter" [(ngModel)]="filterString">
+            <button class="btn btn-primary" (click)="changeName()">Change Exercise Name</button>
+            <a class="btn btn-primary" routerLink="create" style="float: right;margin-bottom: 10px;margin-top: 10px;">Add Exercise</a>
+            {{excerciseName}}
+            {{childValue}}
+            <table class="table">
+                <thead appColor>
+                    <th>id</th>
+                    <th>Excercise Name</th>
+                    <th>Machine Name</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    <!-- <app-exercise-form [formTitle]="title"></app-exercise-form> -->
+                    <ng-container *ngFor="let exercise of exercises">
+                     <!-- <tr *ngIf="searchtext == 'test'"> -->
+                        <tr>
+                         <td>{{exercise.id}}</td>
+                         <td>{{exercise.exercise_name}}</td>
+                         <td>{{exercise.machine_name | uppercase}}</td>
+                         <td>
+                             <button>Update</button>
+                             <button>Delete</button>
+                             <!-- <span class="oi" data-glyph="pencil"></span> -->
+                         </td>
+                     </tr>
+                    </ng-container>
+                    {{searchtext}}
+                </tbody>
+            </table>
+            <div>
+                <p>{{footerMessage}}</p>
+            </div>
+            <ng-content></ng-content>
+        </div>
+    </div>
+
+
+</div>
