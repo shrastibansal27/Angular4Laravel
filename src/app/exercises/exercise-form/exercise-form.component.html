@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <p>
   exercise-form works!
   <ng-content select="header"></ng-content>
@@ -9,9 +9,9 @@
  <p>
   <ng-content select="footer"></ng-content>
 </p>
-</div>
+</div> -->
 <!-- <app-exercises [excerciseName]="formname"></app-exercises> -->
-<form (ngSubmit)="getFormData(f)" #f="ngForm" class="form-horizontal">
+<!-- <form (ngSubmit)="getFormData(f)" #f="ngForm" class="form-horizontal">
     <label>{{formTitle}}</label>
     <div class="form-group">
       <label>Enter Machine Name:</label>
@@ -29,4 +29,27 @@
     </div>
 
 </form>
+ -->
+ <form [formGroup]="exerciseForm" (ngSubmit)="create()">
+  <div formGroupName="exerciseData">
+    <div class="form-group">
+      <label>Enter Machine Name:</label>
+          <input type="name" class="form-control" formControlName="machine_name">
+       <span *ngIf="!exerciseForm.get('exerciseData.machine_name').valid && exerciseForm.get('exerciseData.machine_name').touched" class="help-block">
+         <span *ngIf="exerciseForm.get('exerciseData.machine_name').errors['invalidExerciseName']">First letter should be capital</span>
+         <span *ngIf="exerciseForm.get('exerciseData.machine_name').errors['required']">This field is required</span>
 
+       </span>
+
+    </div>
+
+    <div class="form-group">
+        <label>Enter Machine Code:</label>
+    <input type="name" class="form-control" formControlName="machine_code">
+    <span class="help-block" *ngIf="!exerciseForm.get('exerciseData.machine_code').valid && exerciseForm.get('exerciseData.machine_code').touched" >Please enter valid machine code</span>
+    </div>
+  </div>
+   <div class="form-group">
+        <input type="submit" name="save">
+    </div>
+ </form>

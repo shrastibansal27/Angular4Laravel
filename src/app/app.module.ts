@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes} from '@angular/router';
 import { HttpModule } from '@angular/http';
 
@@ -17,17 +17,18 @@ import { ColorDirective } from './color.directive';
 import { FirstUpperPipe } from './first-upper.pipe';
 import {EvenUpperPipe} from './even-upper.pipe';
 import { FilterPipe } from './filter.pipe';
+import {StructuralDirective} from './structural.directive';
+import {SubscribersModule} from './subscribers/subscribers.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import {AppRoutingModule} from './app-routing.module';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
+import { ExerciseService } from './exercise.service';
+import { HomeComponent } from './home/home.component';
 
 
 
-const appRoutes:Routes =[
-{path:'login',component:LoginFormComponent},
-{path:'register',component:RegisterFormComponent},
-{path : 'dashboard',component : DashboardComponent},
-{path: 'exercises',component : ExercisesComponent},
-{path:'exercises/create',component:ExerciseFormComponent}
 
-]
 
 @NgModule({
   declarations: [
@@ -42,13 +43,16 @@ const appRoutes:Routes =[
     ColorDirective,
     FirstUpperPipe,
     EvenUpperPipe,
-    FilterPipe
+    FilterPipe,
+    StructuralDirective,
+    PageNotFoundComponent,
+    HomeComponent
 
   ],
   imports: [
-    BrowserModule,FormsModule,HttpModule,RouterModule.forRoot(appRoutes)
+    BrowserModule,FormsModule,HttpModule,AppRoutingModule,ReactiveFormsModule
   ],
-  providers: [LoginService],
+  providers: [LoginService,AuthGuard,AuthService,ExerciseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

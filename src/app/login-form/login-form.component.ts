@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { LoginService } from '../login.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,34 +12,34 @@ import { Router } from '@angular/router';
 export class LoginFormComponent implements OnInit {
     message:string = '';
     loginResonse:string;
+    loggedIn:string;
 
-  constructor(private login:LoginService, private router:Router) { }
+@ViewChild('login') signupForm:NgForm;  //Another way to access elements having local reference variable
+
+  constructor(private loginService:LoginService, private router:Router) { }
 
   ngOnInit() {
-    // console.log("hi");
    // this.message = this.login.getLoginCredential();
-    // console.log(this.message);
   }
 
   loginForm(loginForm:NgForm) {
 
-    this.login.loginUser(loginForm.value.email ,loginForm.value.password)
-              .map( res => res.json())
-            //   .do(res => {
-            //   if(res.status === 200)
-            //    //  this.loginResonse => res.status;
-            //    //this.router.navigate(['/dashboard']);
-            //    //console.log(this.loginResonse);
+    console.log(this.signupForm);
+    this.loginService.loginUser(loginForm.value.email ,loginForm.value.password)
+              .subscribe((res) =>{
+                  if (res.status === 200) {
+                    this.loggedIn = 'true';
+                    window.localStorage.setItem('loggedIn',this.loggedIn);
+                    this.router.navigate(['/dashboard']);
+                  }
+                  else{
+                    this.router.navigate(['']);
+                  }
+                });
+  }
 
-            // })
-              .subscribe(
-                (res) => this.loginResonse = res
-               // this.loginResonse => this.res
-               // console.log('Neha',this.loginResonse)
-
-              );
-
-    console.log(this.loginResonse);
+  resetForm(){
+      this.signupForm.reset();
   }
 
 }

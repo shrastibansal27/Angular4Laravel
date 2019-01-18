@@ -1,18 +1,20 @@
-<div class="container">
-    <div class="row">
+<div class="row">
+    <!--We can access the form elements by template reference variable i.e. #login    -->
         <form (ngSubmit)="loginForm(login)" #login="ngForm">
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" name="email" class="form-control" ngModel>
+                <input type="email" name="email" class="form-control" ngModel required #email="ngModel" email>
             </div>
+            <span *ngIf="!email.valid && email.touched" class="help-block">Please enter valid email</span>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control" ngModel>
+                <input type="password" name="password" class="form-control" ngModel required #password="ngModel">
             </div>
+            <span *ngIf="!password.valid && password.touched" class="help-block">Please enter valid password</span>
             <div>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!login.valid">Login</button>
+                 <input type="button" name="reset" value="Reset" class="btn btn-primary" (click)="resetForm()">
             </div>
-        </form>
 
-    </div>
+        </form>
 </div>

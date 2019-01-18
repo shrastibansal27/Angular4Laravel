@@ -12,11 +12,8 @@ export class LoginService {
   loginUser(email: string, password: string){
     return this.http.post("http://127.0.0.1:8000/api/user/login",
         {email:email, password:password},
-        {headers: new Headers({'X-Requested-With':'XMLHttpRequest'})});
-        // .map(
-        //     {
-
-        //     });
+        {headers: new Headers({'X-Requested-With':'XMLHttpRequest'})})
+         .map((res) =>res.json());
   }
 
 }

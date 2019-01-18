@@ -1,15 +1,21 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
+           <!--  Here we project the content to the upper component template -->
             <app-upper-component (onSelectValueChange)="getValuefromChild($event)" (searchValue) = "getSearchValue($event)" [ExerciseName]="ExerciseNameArr">
-
+                <ul>
+                     <li>Biceps</li>
+                      <li>Triceps</li>
+                </ul>
             </app-upper-component>
             <label>Filter:</label>
             <input type="search" name="filter" [(ngModel)]="filterString">
             <button class="btn btn-primary" (click)="changeName()">Change Exercise Name</button>
-            <a class="btn btn-primary" routerLink="create" style="float: right;margin-bottom: 10px;margin-top: 10px;">Add Exercise</a>
+            <a class="btn btn-primary" (click)="createExercise()" style="float: right;margin-bottom: 10px;margin-top: 10px;">Add Exercise</a>
             {{excerciseName}}
-            {{childValue}}
+            <input type="button" name="footer" value="Get Footer Msg" class="btn btn-primary" (click)="passFooterMsgtoUpper()">
+            <a routerLink="/subscribers">subscribers</a>
+            <span class = "label label-default" #exercisetable>Exercises List</span>
             <table class="table">
                 <thead appColor>
                     <th>id</th>
@@ -18,25 +24,28 @@
                     <th>Actions</th>
                 </thead>
                 <tbody>
-                    <!-- <app-exercise-form [formTitle]="title"></app-exercise-form> -->
                     <ng-container *ngFor="let exercise of exercises">
+
                      <!-- <tr *ngIf="searchtext == 'test'"> -->
-                        <tr>
+                        <tr [ngStyle]="{backgroundColor:'#D0CECE'}" [ngClass]="{exerciseName:true}" *ngIf="childValue == exercise.machine_id || childValue == ''">
                          <td>{{exercise.id}}</td>
                          <td>{{exercise.exercise_name}}</td>
-                         <td>{{exercise.machine_name | uppercase}}</td>
+                         <td>{{exercise.machine_name}}</td>
                          <td>
-                             <button>Update</button>
-                             <button>Delete</button>
+                             <button [routerLink]="['/exercises/edit',exercise.id]" routerLinkActive="activecmd">Update</button>
+                             <button [routerLink]="['/exercises/delete']" [queryParams]="{id:exercise.id}" fragment="exercises">Delete</button>
                              <!-- <span class="oi" data-glyph="pencil"></span> -->
                          </td>
                      </tr>
                     </ng-container>
+                    <tr *appUnless="condition">  <!--Example of Custome Structual directive -->
+                            <p>Hello Structural Directive</p>
+                    </tr>
                     {{searchtext}}
                 </tbody>
             </table>
             <div>
-                <p>{{footerMessage}}</p>
+                {{childComTitle}}
             </div>
             <ng-content></ng-content>
         </div>

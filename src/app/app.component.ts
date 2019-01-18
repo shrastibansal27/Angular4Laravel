@@ -1,6 +1,7 @@
 import { Component,Input } from '@angular/core';
 import {OnInit,OnChanges,SimpleChanges,DoCheck} from '@angular/core';
-
+import {AuthService} from './auth.service';
+import {ActivatedRoute,Router} from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,11 +9,20 @@ import {OnInit,OnChanges,SimpleChanges,DoCheck} from '@angular/core';
 })
 export class AppComponent implements OnInit,OnChanges,DoCheck {
   title = 'app';
+  authenticate:string;
 
   @Input('fullName') name:string = "Shrasti";
 
-  constructor(){
-    //console.log("constructor");
+  constructor(private authService:AuthService,private router:Router){
+
+
+    if (window.localStorage.getItem('loggedIn') == null) {
+      this.authenticate = 'false';
+    }
+    else{
+      this.authenticate = window.localStorage.getItem('loggedIn');
+    }
+    console.log("check",this.authenticate);
   }
 
   ngOnChanges(changes:SimpleChanges){
@@ -47,6 +57,11 @@ export class AppComponent implements OnInit,OnChanges,DoCheck {
 
   ngDestroy(){
    //console.log("ngDestroy");
+  }
+
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['']);
   }
 
 }

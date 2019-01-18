@@ -6,8 +6,6 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class ExerciseService {
 
-  footerMsg:string = 'This is a footer msg';
-
   constructor(private http:Http) { }
 
   getExerciseData():Observable<any> {
@@ -18,18 +16,24 @@ export class ExerciseService {
                   );
   }
 
-
- @Output() passFooterMsg:EventEmitter<string> = new EventEmitter();
-
-
-
-  getFooterMsg(){
-    this.passFooterMsg.emit(this.footerMsg);
+  getMachineList():Observable<any>{
+    return this.http.get('http://127.0.0.1:8000/api/machine/list',{headers: new Headers({
+        'X-Requested-With':'XMLHttpRequest'
+    })})
+    .map(
+        (res:Response) =>{return res.json();}
+        );
   }
 
 
-  setFooterMsg(){
+ passFooterMsg:EventEmitter<string> = new EventEmitter();
 
-  }
+
+ getFooterMsg(message:string){
+    this.passFooterMsg.emit(message);
+ }
+
+
+
 
 }

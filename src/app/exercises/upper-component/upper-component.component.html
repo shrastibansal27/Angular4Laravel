@@ -1,4 +1,11 @@
+<label>Equipments</label>
 <select (change)="getChangedValue()" [(ngModel)] = "selectedValue" name="filter">
-    <option *ngFor="let Name of ExerciseName" [value]="Name.id">{{Name.exercise_name}}</option>
+    <option *ngFor="let Machine of MachineList" [value]="Machine.id">{{Machine.machine_name}}</option>
 </select>
 <input type="search" (keypress)="getSearchText()" [(ngModel)]="searchfield" name="search">
+<!-- <ul *ngFor="let Exercise of ExerciseName">
+    <li>{{Exercise.exercise_name}}</li>
+</ul> -->
+{{Footer}}
+<ng-content></ng-content>
+<!-- It hold the projected content or markup of the HTML and helps to display the projected content -->
